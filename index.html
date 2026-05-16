@@ -874,10 +874,11 @@
         { label: "Julia Pfeiffer Burns", duration: 0.5 },
         { label: "Nepenthe meal stop", duration: 1.2 }
       ] },
-      { id: "palo-alto", label: "Palo Alto Flex Day", day: "Jul 14", area: "Palo Alto", x: 654, y: 160, visit: 4.2, drive: 2.6, fatigue: 3.4, defaultOn: true, items: [
+      { id: "santa-cruz", label: "Santa Cruz Flex Day", day: "Jul 14", area: "Santa Cruz", x: 610, y: 240, visit: 4.8, drive: 3.0, fatigue: 3.8, defaultOn: true, items: [
         { label: "Drive north from Carmel", duration: 1.2 },
-        { label: "Stanford campus walk", duration: 1.0 },
-        { label: "Palo Alto downtown", duration: 1.1 },
+        { label: "West Cliff Drive", duration: 0.8 },
+        { label: "Natural Bridges", duration: 0.8 },
+        { label: "Santa Cruz downtown / wharf", duration: 1.3 },
         { label: "Coffee or brunch stop", duration: 0.5 },
         { label: "Settle near airport corridor", duration: 0.4 }
       ] }
@@ -921,10 +922,10 @@
       "Jul 14": {
         badge: "J14",
         color: "#6f86b5",
-        title: "Palo Alto northbound flex day",
+        title: "Santa Cruz northbound flex day",
         stay: "Flexible night if needed",
-        summary: "Instead of Half Moon Bay, use Jul 14 as a calmer northbound day with Palo Alto or Stanford before positioning closer to SFO for the flight out.",
-        weatherKey: "paloalto"
+        summary: "Use Jul 14 as a coastal northbound day through Santa Cruz, then position closer to SFO for an easier flight-out morning and a more scenic final stop.",
+        weatherKey: "santacruz"
       },
       "Jul 15": {
         badge: "J15",
@@ -961,11 +962,11 @@
         lon: -121.8081,
         fallback: "Typical July: 57-72F, sunny inland bends, fog pockets on the coast."
       },
-      paloalto: {
-        label: "Palo Alto",
-        lat: 37.4419,
-        lon: -122.1430,
-        fallback: "Typical July: 56-79F, warmer than the coast, sunnier afternoons, cooler evenings."
+      santacruz: {
+        label: "Santa Cruz",
+        lat: 36.9741,
+        lon: -122.0308,
+        fallback: "Typical July: 56-72F, mild coast, ocean breeze, brighter afternoons than SF."
       },
       sfo: {
         label: "SFO",
@@ -980,7 +981,7 @@
     const options = [
       { id: "tighten-city", label: "Trim SF", desc: "Reduce city-day load", factor: { target: "sf-city", visit: -2.0, drive: -0.4, fatigue: -1.8 } },
       { id: "add-food", label: "Food Focus", desc: "Add meal time", factor: { visit: 1.4, drive: 0.2, fatigue: 0.4, days: ["Jul 10", "Jul 12"] } },
-      { id: "soft-last-day", label: "Soft Final Day", desc: "Favor easier return", factor: { target: "palo-alto", visit: -0.8, drive: -0.6, fatigue: -0.6 } }
+      { id: "soft-last-day", label: "Soft Final Day", desc: "Favor easier return", factor: { target: "santa-cruz", visit: -0.8, drive: -0.6, fatigue: -0.6 } }
     ];
 
     const stopState = Object.fromEntries(stopCatalog.map((stop) => [stop.id, stop.defaultOn]));
@@ -1060,7 +1061,7 @@
     }
 
     function getReturnDrive(selectedStops) {
-      if (selectedStops.some((stop) => stop.id === "palo-alto")) return 0.5;
+      if (selectedStops.some((stop) => stop.id === "santa-cruz")) return 1.3;
       if (selectedStops.some((stop) => stop.id === "big-sur")) return 3.0;
       if (selectedStops.some((stop) => stop.id === "carmel-17mile")) return 2.6;
       if (selectedStops.some((stop) => stop.id === "muir-woods")) return 0.9;
@@ -1068,7 +1069,7 @@
     }
 
     function getReturnOrigin(selectedStops) {
-      if (selectedStops.some((stop) => stop.id === "palo-alto")) return "Palo Alto";
+      if (selectedStops.some((stop) => stop.id === "santa-cruz")) return "Santa Cruz";
       if (selectedStops.some((stop) => stop.id === "big-sur")) return "Carmel / Big Sur base";
       if (selectedStops.some((stop) => stop.id === "carmel-17mile")) return "Carmel / Monterey";
       if (selectedStops.some((stop) => stop.id === "muir-woods")) return "San Francisco";
