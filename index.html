@@ -830,26 +830,37 @@
         { label: "Ghirardelli Square", duration: 0.7 },
         { label: "Waterfront dinner", duration: 0.5 }
       ] },
-      { id: "boat-tour", label: "Boat Tour", day: "Jul 14", area: "San Francisco", x: 698, y: 104, visit: 2.0, drive: 0.2, fatigue: 1.5, defaultOn: false, items: [
+      { id: "boat-tour", label: "Boat Tour", day: "Jul 11", area: "San Francisco", x: 698, y: 104, visit: 2.0, drive: 0.2, fatigue: 1.5, defaultOn: false, items: [
         { label: "Golden Gate Cruise", duration: 1.5 },
         { label: "Boarding / queue buffer", duration: 0.5 }
       ] },
-      { id: "muir-woods", label: "Muir Woods", day: "Jul 11", area: "North Coast", x: 643, y: 192, visit: 3.0, drive: 2.0, fatigue: 2.8, defaultOn: true, items: [
+      { id: "sf-classics", label: "SF Full Day", day: "Jul 11", area: "San Francisco", x: 686, y: 86, visit: 6.3, drive: 1.4, fatigue: 5.0, defaultOn: true, items: [
+        { label: "Baker Beach", duration: 0.8 },
+        { label: "Battery Spencer", duration: 0.8 },
+        { label: "Lombard Street", duration: 0.5 },
+        { label: "California Street", duration: 0.4 },
+        { label: "Chinatown", duration: 0.9 },
+        { label: "Cable Car Ride", duration: 1.0 },
+        { label: "Slow city dinner", duration: 1.0 },
+        { label: "Late waterfront walk", duration: 0.9 }
+      ] },
+      { id: "muir-woods", label: "Muir Woods + Southbound Transfer", day: "Jul 12", area: "North Coast", x: 643, y: 192, visit: 4.8, drive: 4.0, fatigue: 4.9, defaultOn: true, items: [
+        { label: "Hotel checkout", duration: 0.4 },
         { label: "Muir Woods trails", duration: 2.2 },
         { label: "Muir Beach Overlook", duration: 0.6 }
+        ,
+        { label: "Drive south toward Carmel", duration: 1.0 },
+        { label: "Carmel hotel check-in", duration: 0.6 }
       ] },
-      { id: "sausalito", label: "Sausalito", day: "Jul 11", area: "North Coast", x: 664, y: 150, visit: 1.2, drive: 0.5, fatigue: 1.0, defaultOn: false, items: [
+      { id: "sausalito", label: "Sausalito", day: "Jul 12", area: "North Coast", x: 664, y: 150, visit: 1.2, drive: 0.5, fatigue: 1.0, defaultOn: false, items: [
         { label: "Sausalito waterfront stop", duration: 0.8 },
         { label: "Coffee / snack buffer", duration: 0.4 }
       ] },
-      { id: "carmel-17mile", label: "17 Mile + Carmel", day: "Jul 12", area: "Carmel", x: 604, y: 305, visit: 6.5, drive: 4.5, fatigue: 6.3, defaultOn: true, items: [
+      { id: "carmel-17mile", label: "Carmel Evening", day: "Jul 12", area: "Carmel", x: 604, y: 305, visit: 3.0, drive: 0.8, fatigue: 2.4, defaultOn: true, items: [
         { label: "Spanish Bay", duration: 0.4 },
-        { label: "Bird Rock", duration: 0.3 },
-        { label: "Lone Cypress", duration: 0.4 },
-        { label: "Pebble Beach", duration: 0.5 },
         { label: "Carmel Beach", duration: 0.9 },
         { label: "Ocean Avenue / village", duration: 1.6 },
-        { label: "Carmel Mission", duration: 0.7 }
+        { label: "Early dinner in Carmel", duration: 0.7 }
       ] },
       { id: "big-sur", label: "Big Sur", day: "Jul 13", area: "Big Sur", x: 557, y: 426, visit: 6.0, drive: 3.5, fatigue: 5.8, defaultOn: true, items: [
         { label: "Point Lobos", duration: 1.8 },
@@ -859,20 +870,12 @@
         { label: "Julia Pfeiffer Burns", duration: 0.5 },
         { label: "Nepenthe meal stop", duration: 1.2 }
       ] },
-      { id: "sf-classics", label: "SF Classics Catch-up", day: "Jul 14", area: "San Francisco", x: 686, y: 86, visit: 5.4, drive: 1.1, fatigue: 4.8, defaultOn: true, items: [
-        { label: "Baker Beach", duration: 0.8 },
-        { label: "Battery Spencer", duration: 0.8 },
-        { label: "Lombard Street", duration: 0.5 },
-        { label: "California Street", duration: 0.4 },
-        { label: "Chinatown", duration: 0.9 },
-        { label: "Cable Car Ride", duration: 1.0 },
-        { label: "Slow city dinner", duration: 1.0 }
-      ] },
-      { id: "half-moon-bay", label: "Half Moon Bay", day: "Jul 14", area: "Half Moon Bay", x: 520, y: 551, visit: 3.0, drive: 3.2, fatigue: 3.2, defaultOn: false, items: [
-        { label: "Coastal Trail", duration: 1.0 },
-        { label: "Mavericks Beach", duration: 0.5 },
-        { label: "Poplar Beach", duration: 0.6 },
-        { label: "Ritz-Carlton ocean stop", duration: 0.9 }
+      { id: "palo-alto", label: "Palo Alto Flex Day", day: "Jul 14", area: "Palo Alto", x: 654, y: 160, visit: 4.2, drive: 2.6, fatigue: 3.4, defaultOn: true, items: [
+        { label: "Drive north from Carmel", duration: 1.2 },
+        { label: "Stanford campus walk", duration: 1.0 },
+        { label: "Palo Alto downtown", duration: 1.1 },
+        { label: "Coffee or brunch stop", duration: 0.5 },
+        { label: "Settle near airport corridor", duration: 0.4 }
       ] }
     ];
 
@@ -890,17 +893,17 @@
       "Jul 11": {
         badge: "J11",
         color: "#4a8f6b",
-        title: "Redwoods and north coast",
+        title: "Full San Francisco day",
         stay: "Stay in downtown San Francisco",
-        summary: "A lower-density day built around Muir Woods, ocean overlooks, and optional Sausalito on the way back.",
-        weatherKey: "muir"
+        summary: "Keep this entire day in San Francisco. This is the right place for cable cars, Chinatown, classic viewpoints, and any optional boat tour without a hotel move getting in the way.",
+        weatherKey: "sf"
       },
       "Jul 12": {
         badge: "J12",
         color: "#c47c2f",
-        title: "Move south to Carmel",
+        title: "Checkout, Muir Woods, then Carmel",
         stay: "Stay in Carmel / Monterey",
-        summary: "This is the transition day. Use it to relocate south and turn 17 Mile Drive plus Carmel into the main event.",
+        summary: "Check out in the morning, do Muir Woods on the way, then commit to the southbound move and check into a Carmel-area stay by evening.",
         weatherKey: "carmel"
       },
       "Jul 13": {
@@ -914,10 +917,10 @@
       "Jul 14": {
         badge: "J14",
         color: "#6f86b5",
-        title: "SF catch-up / northbound flex day",
+        title: "Palo Alto northbound flex day",
         stay: "Flexible night if needed",
-        summary: "Use this as the catch-up day for classic San Francisco sights you skip on arrival. Half Moon Bay or a boat tour can still fit here if you want a softer final scenic day.",
-        weatherKey: "halfmoon"
+        summary: "Instead of Half Moon Bay, use Jul 14 as a calmer northbound day with Palo Alto or Stanford before positioning closer to SFO for the flight out.",
+        weatherKey: "paloalto"
       },
       "Jul 15": {
         badge: "J15",
@@ -954,11 +957,11 @@
         lon: -121.8081,
         fallback: "Typical July: 57-72F, sunny inland bends, fog pockets on the coast."
       },
-      halfmoon: {
-        label: "Half Moon Bay",
-        lat: 37.4636,
-        lon: -122.4286,
-        fallback: "Typical July: 55-66F, cool coast, frequent morning cloud and wind."
+      paloalto: {
+        label: "Palo Alto",
+        lat: 37.4419,
+        lon: -122.1430,
+        fallback: "Typical July: 56-79F, warmer than the coast, sunnier afternoons, cooler evenings."
       },
       sfo: {
         label: "SFO",
@@ -973,7 +976,7 @@
     const options = [
       { id: "tighten-city", label: "Trim SF", desc: "Reduce city-day load", factor: { target: "sf-city", visit: -2.0, drive: -0.4, fatigue: -1.8 } },
       { id: "add-food", label: "Food Focus", desc: "Add meal time", factor: { visit: 1.4, drive: 0.2, fatigue: 0.4, days: ["Jul 10", "Jul 12"] } },
-      { id: "soft-last-day", label: "Soft Final Day", desc: "Favor easier return", factor: { target: "half-moon-bay", visit: -0.8, drive: -0.6, fatigue: -0.6 } }
+      { id: "soft-last-day", label: "Soft Final Day", desc: "Favor easier return", factor: { target: "palo-alto", visit: -0.8, drive: -0.6, fatigue: -0.6 } }
     ];
 
     const stopState = Object.fromEntries(stopCatalog.map((stop) => [stop.id, stop.defaultOn]));
@@ -1053,7 +1056,7 @@
     }
 
     function getReturnDrive(selectedStops) {
-      if (selectedStops.some((stop) => stop.id === "half-moon-bay")) return 0.9;
+      if (selectedStops.some((stop) => stop.id === "palo-alto")) return 0.5;
       if (selectedStops.some((stop) => stop.id === "big-sur")) return 3.0;
       if (selectedStops.some((stop) => stop.id === "carmel-17mile")) return 2.6;
       if (selectedStops.some((stop) => stop.id === "muir-woods")) return 0.9;
@@ -1061,7 +1064,7 @@
     }
 
     function getReturnOrigin(selectedStops) {
-      if (selectedStops.some((stop) => stop.id === "half-moon-bay")) return "Half Moon Bay";
+      if (selectedStops.some((stop) => stop.id === "palo-alto")) return "Palo Alto";
       if (selectedStops.some((stop) => stop.id === "big-sur")) return "Carmel / Big Sur base";
       if (selectedStops.some((stop) => stop.id === "carmel-17mile")) return "Carmel / Monterey";
       if (selectedStops.some((stop) => stop.id === "muir-woods")) return "San Francisco";
