@@ -260,33 +260,34 @@
 
     .map-overlay {
       position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 18px;
+      left: auto;
+      right: 14px;
+      bottom: 14px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
+      gap: 8px;
+      width: min(470px, calc(100% - 28px));
     }
 
     .mini-stat {
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.84);
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.78);
       border: 1px solid rgba(19, 35, 43, 0.08);
       backdrop-filter: blur(10px);
     }
 
     .mini-stat strong {
       display: block;
-      font-size: 1.12rem;
+      font-size: 0.98rem;
       letter-spacing: -0.05em;
     }
 
     .mini-stat span {
       display: block;
-      margin-top: 4px;
+      margin-top: 2px;
       color: var(--muted);
-      font-size: 0.78rem;
+      font-size: 0.7rem;
     }
 
     .side-card {
@@ -440,8 +441,8 @@
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 12px;
-      padding: 12px;
-      border-radius: 18px;
+      padding: 10px 11px;
+      border-radius: 16px;
       background: rgba(255, 255, 255, 0.84);
       border: 1px solid rgba(19, 35, 43, 0.08);
       cursor: pointer;
@@ -458,34 +459,46 @@
     }
 
     .route-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
       display: grid;
       place-items: center;
       font-weight: 700;
       color: var(--accent);
       background: rgba(15, 123, 116, 0.1);
+      font-size: 0.72rem;
     }
 
     .route-day strong {
       display: block;
-      font-size: 0.92rem;
+      font-size: 0.84rem;
     }
 
     .route-day span {
       display: block;
-      margin-top: 4px;
+      margin-top: 2px;
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.76rem;
     }
 
     .route-day em {
       font-style: normal;
       color: #d06649;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.76rem;
       white-space: nowrap;
+    }
+
+    .micro-stop {
+      fill: rgba(15, 123, 116, 0.88);
+      stroke: rgba(255, 255, 255, 0.92);
+      stroke-width: 2.5;
+      opacity: 0.92;
+    }
+
+    .micro-stop-shadow {
+      fill: rgba(15, 123, 116, 0.18);
     }
 
     .legend {
@@ -606,10 +619,10 @@
 
       .map-overlay {
         grid-template-columns: 1fr 1fr;
-        left: 12px;
         right: 12px;
         bottom: 12px;
         gap: 8px;
+        width: min(250px, calc(100% - 24px));
       }
 
       .mini-stat {
@@ -723,7 +736,7 @@
         </div>
 
         <div class="map-stage">
-          <svg viewBox="0 0 980 700" aria-hidden="true">
+          <svg viewBox="460 0 350 700" aria-hidden="true">
             <defs>
               <linearGradient id="sea" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#dff1f5"></stop>
@@ -749,6 +762,7 @@
             <path id="routePath" d="M686 86 L643 192 L604 305 L557 426" fill="none" stroke="url(#routeGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#softShadow)"></path>
             <path id="returnPath" d="" fill="none" stroke="#0f7b74" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 12" opacity="0.75"></path>
 
+            <g id="microStops"></g>
             <g id="dayMarkers"></g>
 
             <g font-family="Avenir Next, Segoe UI, sans-serif" fill="#264350">
@@ -923,8 +937,22 @@
     const carMarker = document.getElementById("carMarker");
     const routePath = document.getElementById("routePath");
     const returnPath = document.getElementById("returnPath");
+    const microStops = document.getElementById("microStops");
     const dayMarkers = document.getElementById("dayMarkers");
     let expandedDay = null;
+
+    const microStopOffsets = [
+      { x: -16, y: -20 },
+      { x: -26, y: -8 },
+      { x: -14, y: 8 },
+      { x: -22, y: 24 },
+      { x: 10, y: -18 },
+      { x: 18, y: -4 },
+      { x: 14, y: 14 },
+      { x: 4, y: 28 },
+      { x: -30, y: 12 },
+      { x: 22, y: 24 }
+    ];
 
     function renderControls() {
       stopChips.innerHTML = stopCatalog.map((stop) => `
@@ -1034,6 +1062,25 @@
       const markerStops = [...selectedStops, returnStop];
       dayMarkers.innerHTML = markerStops.map((stop, index) => `
         <circle cx="${stop.x}" cy="${stop.y}" r="${index === markerStops.length - 1 ? 9 : 11}" fill="#ffffff" stroke="${index === markerStops.length - 1 ? "#0f7b74" : "#ff7a59"}" stroke-width="4"></circle>
+      `).join("");
+
+      const visibleMicroStops = selectedStops.flatMap((stop) => {
+        if (!stop.items || !stop.items.length) return [];
+        return stop.items.slice(0, 8).map((item, index) => {
+          const offset = microStopOffsets[index % microStopOffsets.length];
+          return {
+            label: item.label,
+            x: stop.x + offset.x,
+            y: stop.y + offset.y
+          };
+        });
+      });
+
+      microStops.innerHTML = visibleMicroStops.map((item) => `
+        <g>
+          <circle class="micro-stop-shadow" cx="${item.x}" cy="${item.y}" r="7"></circle>
+          <circle class="micro-stop" cx="${item.x}" cy="${item.y}" r="4"></circle>
+        </g>
       `).join("");
     }
 
@@ -1157,8 +1204,8 @@
         summaryTextEl.textContent = "This setup is scenic-rich, but the days start becoming schedule-driven instead of relaxed.";
       }
 
-      const placeNames = [...selectedStops.map((stop) => stop.label), "Return to SFO"].join(" • ");
-      mapSubheadEl.textContent = placeNames || "Select stops above to build the route.";
+      const placeCount = selectedStops.reduce((sum, stop) => sum + ((stop.items && stop.items.length) ? stop.items.length : 1), 0);
+      mapSubheadEl.textContent = `${selectedStops.length} route blocks • ${placeCount} mapped places • return to SFO`;
 
       updateCarPosition(selectedStops);
       updateMapRoute(selectedStops);
