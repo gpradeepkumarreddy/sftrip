@@ -1358,7 +1358,7 @@
           <div class="route-day ${expandedDay === day ? "active" : ""}" data-day-card="${day}">
             <div class="route-badge">${meta.badge}</div>
             <div class="route-main">
-              <strong>${day}</strong>
+              <strong>${meta.title}</strong>
               <span>${day === "Jul 15" ? `Leave ${returnPlan.origin} by about ${returnPlan.leaveBy}` : (names || meta.title)}</span>
               ${expandedDay === day ? "<small>Expanded details</small>" : ""}
             </div>
