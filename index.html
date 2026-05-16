@@ -340,22 +340,35 @@
       background: linear-gradient(180deg, rgba(15, 123, 116, 0.24), rgba(15, 123, 116, 0.08));
     }
 
+    .timeline-section {
+      position: relative;
+      display: grid;
+      gap: 8px;
+    }
+
     .timeline-day {
       position: relative;
+      display: grid;
+      gap: 2px;
+      padding: 8px 10px 8px 10px;
       margin-top: 4px;
-      padding-left: 8px;
+      margin-left: 8px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(19, 35, 43, 0.08);
+      cursor: pointer;
     }
 
     .timeline-day::before {
       content: "";
       position: absolute;
-      left: -14px;
-      top: 8px;
+      left: -22px;
+      top: 12px;
       width: 10px;
       height: 10px;
       border-radius: 50%;
       background: #fff;
-      border: 3px solid var(--accent);
+      border: 3px solid var(--day-color, var(--accent));
     }
 
     .timeline-day strong {
@@ -363,7 +376,7 @@
       font-size: 0.82rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--day-color, var(--accent));
     }
 
     .timeline-day span {
@@ -374,6 +387,26 @@
       line-height: 1.35;
     }
 
+    .timeline-day small {
+      color: var(--day-color, var(--accent));
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .timeline-items {
+      display: grid;
+      gap: 8px;
+      margin-left: 22px;
+      padding-left: 12px;
+      border-left: 2px solid color-mix(in srgb, var(--day-color, var(--accent)) 24%, transparent);
+    }
+
+    .timeline-section.collapsed .timeline-items {
+      display: none;
+    }
+
     .timeline-stop {
       position: relative;
       display: grid;
@@ -382,8 +415,8 @@
       align-items: start;
       padding: 10px 12px;
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(19, 35, 43, 0.08);
+      background: color-mix(in srgb, var(--day-color, var(--accent)) 5%, white);
+      border: 1px solid color-mix(in srgb, var(--day-color, var(--accent)) 16%, rgba(19, 35, 43, 0.08));
     }
 
     .timeline-stop::before {
@@ -394,8 +427,8 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(15, 123, 116, 0.18);
-      border: 2px solid rgba(15, 123, 116, 0.7);
+      background: color-mix(in srgb, var(--day-color, var(--accent)) 20%, white);
+      border: 2px solid var(--day-color, var(--accent));
     }
 
     .timeline-main strong {
@@ -829,6 +862,7 @@
     const dayMeta = {
       "Jul 10": {
         badge: "J10",
+        color: "#0f7b74",
         title: "San Francisco city day",
         stay: "Stay in downtown San Francisco",
         summary: "Arrival day focused on the bridge, waterfront, cable car energy, and a clean first taste of the city.",
@@ -836,6 +870,7 @@
       },
       "Jul 11": {
         badge: "J11",
+        color: "#4a8f6b",
         title: "Redwoods and north coast",
         stay: "Stay in downtown San Francisco",
         summary: "A lower-density day built around Muir Woods, ocean overlooks, and optional Sausalito on the way back.",
@@ -843,6 +878,7 @@
       },
       "Jul 12": {
         badge: "J12",
+        color: "#c47c2f",
         title: "Move south to Carmel",
         stay: "Stay in Carmel / Monterey",
         summary: "This is the transition day. Use it to relocate south and turn 17 Mile Drive plus Carmel into the main event.",
@@ -850,6 +886,7 @@
       },
       "Jul 13": {
         badge: "J13",
+        color: "#c15f43",
         title: "Big Sur scenic day",
         stay: "Stay in Carmel / Monterey",
         summary: "The signature coast day with the biggest scenery payoff and the highest risk of stop-creep if you overpack it.",
@@ -857,6 +894,7 @@
       },
       "Jul 14": {
         badge: "J14",
+        color: "#6f86b5",
         title: "Optional northbound buffer",
         stay: "Flexible night if needed",
         summary: "Half Moon Bay works best as a soft buffer day before the final airport return, not as a mandatory add-on.",
@@ -864,6 +902,7 @@
       },
       "Jul 15": {
         badge: "J15",
+        color: "#5a6a7b",
         title: "Return to SFO",
         stay: "Flight out",
         summary: "Build enough buffer for the drive north, fuel, bag handling, and airport traffic before the 10:00 PM departure.",
@@ -936,6 +975,7 @@
     const returnPath = document.getElementById("returnPath");
     const microStops = document.getElementById("microStops");
     const dayMarkers = document.getElementById("dayMarkers");
+    const collapsedDays = new Set();
 
     const microStopOffsets = [
       { x: -16, y: -20 },
@@ -1171,6 +1211,7 @@
         const weather = getWeatherSummary(day);
         const dayDrive = stops.reduce((sum, stop) => sum + stop.drive, 0);
         const dayVisit = stops.reduce((sum, stop) => sum + stop.visit, 0);
+        const isCollapsed = collapsedDays.has(day);
 
         const stopMarkup = stops.flatMap((stop) => {
           if (stop.items && stop.items.length) {
@@ -1202,11 +1243,16 @@
         }).join("");
 
         return `
-          <div class="timeline-day">
-            <strong>${day} • ${meta.title}</strong>
-            <span>${day === "Jul 15" ? `Drive ${dayDrive.toFixed(1)}h, aim for airport arrival around ${returnPlan.airportArrival}.` : `${dayVisit.toFixed(1)}h planned • ${dayDrive.toFixed(1)}h drive${weather ? ` • ${weather.short}` : ""}`}</span>
-          </div>
-          ${stopMarkup}
+          <section class="timeline-section ${isCollapsed ? "collapsed" : ""}" style="--day-color:${meta.color}">
+            <div class="timeline-day" data-day-header="${day}">
+              <strong>${day} • ${meta.title}</strong>
+              <span>${day === "Jul 15" ? `Drive ${dayDrive.toFixed(1)}h, aim for airport arrival around ${returnPlan.airportArrival}.` : `${dayVisit.toFixed(1)}h planned • ${dayDrive.toFixed(1)}h drive${weather ? ` • ${weather.short}` : ""}`}</span>
+              <small>${isCollapsed ? "Collapsed" : "Expanded"}</small>
+            </div>
+            <div class="timeline-items">
+              ${stopMarkup}
+            </div>
+          </section>
         `;
       }).join("");
     }
@@ -1264,6 +1310,15 @@
         optionState[optionInput.dataset.optionId] = optionInput.checked;
         updateSummary();
       }
+    });
+
+    document.addEventListener("click", (event) => {
+      const header = event.target.closest("[data-day-header]");
+      if (!header) return;
+      const day = header.dataset.dayHeader;
+      if (collapsedDays.has(day)) collapsedDays.delete(day);
+      else collapsedDays.add(day);
+      updateSummary();
     });
 
     renderControls();
