@@ -821,19 +821,16 @@
 
   <script>
     const stopCatalog = [
-      { id: "sf-city", label: "SF City", day: "Jul 10", area: "San Francisco", x: 686, y: 86, visit: 8.0, drive: 1.8, fatigue: 7.5, defaultOn: true, items: [
-        { label: "Golden Gate Overlook", duration: 0.5 },
-        { label: "Baker Beach", duration: 0.8 },
-        { label: "Battery Spencer", duration: 0.8 },
+      { id: "sf-city", label: "SF Arrival Loop", day: "Jul 10", area: "San Francisco", x: 686, y: 86, visit: 5.6, drive: 0.9, fatigue: 4.4, defaultOn: true, items: [
+        { label: "Hotel check-in / refresh", duration: 1.0 },
         { label: "Palace of Fine Arts", duration: 0.5 },
-        { label: "Lombard Street", duration: 0.5 },
-        { label: "California Street", duration: 0.4 },
-        { label: "Chinatown", duration: 0.9 },
-        { label: "Cable Car Ride", duration: 1.0 },
+        { label: "Crissy Field", duration: 0.8 },
+        { label: "Golden Gate Overlook", duration: 0.5 },
         { label: "Pier 39 + Fisherman's Wharf", duration: 1.6 },
-        { label: "Ghirardelli Square", duration: 0.7 }
+        { label: "Ghirardelli Square", duration: 0.7 },
+        { label: "Waterfront dinner", duration: 0.5 }
       ] },
-      { id: "boat-tour", label: "Boat Tour", day: "Jul 10", area: "San Francisco", x: 698, y: 104, visit: 2.0, drive: 0.2, fatigue: 1.5, defaultOn: true, items: [
+      { id: "boat-tour", label: "Boat Tour", day: "Jul 14", area: "San Francisco", x: 698, y: 104, visit: 2.0, drive: 0.2, fatigue: 1.5, defaultOn: false, items: [
         { label: "Golden Gate Cruise", duration: 1.5 },
         { label: "Boarding / queue buffer", duration: 0.5 }
       ] },
@@ -862,6 +859,15 @@
         { label: "Julia Pfeiffer Burns", duration: 0.5 },
         { label: "Nepenthe meal stop", duration: 1.2 }
       ] },
+      { id: "sf-classics", label: "SF Classics Catch-up", day: "Jul 14", area: "San Francisco", x: 686, y: 86, visit: 5.4, drive: 1.1, fatigue: 4.8, defaultOn: true, items: [
+        { label: "Baker Beach", duration: 0.8 },
+        { label: "Battery Spencer", duration: 0.8 },
+        { label: "Lombard Street", duration: 0.5 },
+        { label: "California Street", duration: 0.4 },
+        { label: "Chinatown", duration: 0.9 },
+        { label: "Cable Car Ride", duration: 1.0 },
+        { label: "Slow city dinner", duration: 1.0 }
+      ] },
       { id: "half-moon-bay", label: "Half Moon Bay", day: "Jul 14", area: "Half Moon Bay", x: 520, y: 551, visit: 3.0, drive: 3.2, fatigue: 3.2, defaultOn: false, items: [
         { label: "Coastal Trail", duration: 1.0 },
         { label: "Mavericks Beach", duration: 0.5 },
@@ -876,9 +882,9 @@
       "Jul 10": {
         badge: "J10",
         color: "#0f7b74",
-        title: "San Francisco city day",
+        title: "Arrival day in San Francisco",
         stay: "Stay in downtown San Francisco",
-        summary: "Arrival day focused on the bridge, waterfront, cable car energy, and a clean first taste of the city.",
+        summary: "Keep this first day light. After a 10:20 AM landing, airport transfer, and hotel check-in, the realistic win is a relaxed waterfront loop plus one or two signature views.",
         weatherKey: "sf"
       },
       "Jul 11": {
@@ -908,9 +914,9 @@
       "Jul 14": {
         badge: "J14",
         color: "#6f86b5",
-        title: "Optional northbound buffer",
+        title: "SF catch-up / northbound flex day",
         stay: "Flexible night if needed",
-        summary: "Half Moon Bay works best as a soft buffer day before the final airport return, not as a mandatory add-on.",
+        summary: "Use this as the catch-up day for classic San Francisco sights you skip on arrival. Half Moon Bay or a boat tour can still fit here if you want a softer final scenic day.",
         weatherKey: "halfmoon"
       },
       "Jul 15": {
