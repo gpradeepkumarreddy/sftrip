@@ -323,6 +323,43 @@
       line-height: 1.5;
     }
 
+    .weather-summary {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(19, 35, 43, 0.08);
+    }
+
+    .weather-summary h3 {
+      margin: 0;
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .weather-row {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .weather-row strong {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--accent);
+    }
+
+    .weather-row span {
+      display: block;
+      color: #405962;
+      font-size: 0.75rem;
+      line-height: 1.35;
+    }
+
     .route-strip {
       display: grid;
       gap: 10px;
@@ -900,6 +937,10 @@
           <span id="summaryText">You have enough room for the signature sights without turning the trip into a checklist sprint.</span>
         </div>
 
+        <div class="weather-summary" id="weatherSummary">
+          <h3>Weather Outlook</h3>
+        </div>
+
         <div class="route-strip" id="routeStrip"></div>
       </aside>
     </section>
@@ -1062,6 +1103,7 @@
     const activeDaysEl = document.getElementById("activeDays");
     const summaryTitleEl = document.getElementById("summaryTitle");
     const summaryTextEl = document.getElementById("summaryText");
+    const weatherSummaryEl = document.getElementById("weatherSummary");
     const mapSubheadEl = document.getElementById("mapSubhead");
     const carMarker = document.getElementById("carMarker");
     const routePath = document.getElementById("routePath");
@@ -1374,6 +1416,20 @@
       }).join("");
     }
 
+    function updateWeatherSummary() {
+      const rows = Object.entries(dayMeta).map(([day, meta]) => {
+        const weather = getWeatherSummary(day);
+        return `
+          <div class="weather-row">
+            <strong>${day}</strong>
+            <span>${weather ? weather.short : "Loading weather..."}</span>
+          </div>
+        `;
+      }).join("");
+
+      weatherSummaryEl.innerHTML = `<h3>Weather Outlook</h3>${rows}`;
+    }
+
     function updateSummary() {
       const selectedStops = getSelectedStops();
       const returnPlan = getReturnPlan(selectedStops);
@@ -1412,6 +1468,7 @@
       updateCarPosition(selectedStops);
       updateMapRoute(selectedStops);
       updateRouteStrip(selectedStops);
+      updateWeatherSummary();
     }
 
     document.addEventListener("change", (event) => {
