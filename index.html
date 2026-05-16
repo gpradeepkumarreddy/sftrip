@@ -264,13 +264,13 @@
       right: auto;
       bottom: 14px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      width: min(250px, calc(100% - 28px));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      width: min(360px, calc(100% - 28px));
     }
 
     .mini-stat {
-      padding: 8px 10px;
+      padding: 7px 9px;
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.74);
       border: 1px solid rgba(19, 35, 43, 0.08);
@@ -279,7 +279,7 @@
 
     .mini-stat strong {
       display: block;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       letter-spacing: -0.05em;
     }
 
@@ -287,7 +287,7 @@
       display: block;
       margin-top: 2px;
       color: var(--muted);
-      font-size: 0.66rem;
+      font-size: 0.62rem;
     }
 
     .side-card {
@@ -437,6 +437,7 @@
     }
 
     .route-day {
+      position: relative;
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
@@ -456,6 +457,22 @@
     .route-day.active {
       border-color: rgba(15, 123, 116, 0.22);
       background: rgba(240, 249, 247, 0.96);
+    }
+
+    .route-day.active::after {
+      content: "Expanded";
+      position: absolute;
+      right: 12px;
+      top: -10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 123, 116, 0.1);
+      border: 1px solid rgba(15, 123, 116, 0.14);
+      color: var(--accent);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .route-badge {
@@ -488,6 +505,30 @@
       font-weight: 700;
       font-size: 0.76rem;
       white-space: nowrap;
+    }
+
+    .route-main {
+      min-width: 0;
+    }
+
+    .route-main small {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 5px;
+      color: var(--accent);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .route-main small::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
     }
 
     .micro-stop {
@@ -618,12 +659,12 @@
       }
 
       .map-overlay {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         left: 10px;
         right: auto;
         bottom: 12px;
         gap: 6px;
-        width: min(190px, calc(100% - 20px));
+        width: min(280px, calc(100% - 20px));
       }
 
       .mini-stat {
@@ -660,6 +701,10 @@
       .route-day em {
         grid-column: 2;
         white-space: normal;
+      }
+
+      .route-day.active::after {
+        right: 10px;
       }
 
       .route-badge {
@@ -1147,9 +1192,10 @@
         return `
           <div class="route-day ${expandedDay === day ? "active" : ""}" data-day-card="${day}">
             <div class="route-badge">${meta.badge}</div>
-            <div>
+            <div class="route-main">
               <strong>${day}</strong>
               <span>${day === "Jul 15" ? `Leave ${returnPlan.origin} by about ${returnPlan.leaveBy}` : (names || meta.title)}</span>
+              ${expandedDay === day ? "<small>Expanded details</small>" : ""}
             </div>
             <em>${drive.toFixed(1)}h drive / ${visit.toFixed(1)}h plan</em>
           </div>
