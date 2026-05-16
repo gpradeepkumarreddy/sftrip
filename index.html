@@ -410,7 +410,7 @@
     .timeline-stop {
       position: relative;
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr auto;
       gap: 12px;
       align-items: start;
       padding: 10px 12px;
@@ -429,6 +429,19 @@
       border-radius: 50%;
       background: color-mix(in srgb, var(--day-color, var(--accent)) 20%, white);
       border: 2px solid var(--day-color, var(--accent));
+    }
+
+    .timeline-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: color-mix(in srgb, var(--day-color, var(--accent)) 14%, white);
+      color: var(--day-color, var(--accent));
+      font-size: 0.82rem;
+      line-height: 1;
+      flex: 0 0 auto;
     }
 
     .timeline-main strong {
@@ -1069,6 +1082,23 @@
       };
     }
 
+    function getItemIcon(label) {
+      const text = label.toLowerCase();
+      if (text.includes("bridge")) return "🌉";
+      if (text.includes("beach")) return "🏖";
+      if (text.includes("woods") || text.includes("trail") || text.includes("park") || text.includes("lobos")) return "🌲";
+      if (text.includes("mission") || text.includes("palace")) return "🏛";
+      if (text.includes("pier") || text.includes("wharf") || text.includes("cruise") || text.includes("boat")) return "⛴";
+      if (text.includes("street") || text.includes("avenue") || text.includes("town") || text.includes("village") || text.includes("chinatown")) return "🏙";
+      if (text.includes("food") || text.includes("meal") || text.includes("coffee") || text.includes("nepenthe")) return "🍽";
+      if (text.includes("golf")) return "⛳";
+      if (text.includes("airport") || text.includes("return")) return "✈";
+      if (text.includes("ride")) return "🚋";
+      if (text.includes("falls")) return "💧";
+      if (text.includes("view") || text.includes("overlook") || text.includes("cypress")) return "📍";
+      return "•";
+    }
+
     function formatTemp(value) {
       return `${Math.round(value)}F`;
     }
@@ -1217,6 +1247,7 @@
           if (stop.items && stop.items.length) {
             return stop.items.map((item) => `
               <article class="timeline-stop">
+                <div class="timeline-icon">${getItemIcon(item.label)}</div>
                 <div class="timeline-main">
                   <strong>${item.label}</strong>
                   <span>${stop.label}</span>
@@ -1230,6 +1261,7 @@
 
           return [`
             <article class="timeline-stop">
+              <div class="timeline-icon">${getItemIcon(stop.label)}</div>
               <div class="timeline-main">
                 <strong>${stop.label}</strong>
                 <span>${day === "Jul 15" ? `Leave ${returnPlan.origin} by about ${returnPlan.leaveBy}` : meta.title}</span>
