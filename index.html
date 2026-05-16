@@ -519,31 +519,158 @@
       }
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 900px) {
       .wrap {
         width: min(var(--max), calc(100% - 16px));
+        padding: 8px 0 16px;
       }
 
       .topbar {
-        border-radius: 22px;
+        position: static;
+        border-radius: 20px;
+        padding: 12px;
       }
 
+      .topline {
+        gap: 12px;
+      }
+
+      .title-wrap h1 {
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
+      }
+
+      .title-wrap p {
+        font-size: 0.86rem;
+      }
+
+      .trip-meta {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr;
+        overflow: visible;
+      }
+
+      .control-card,
+      .control-card.stops-card,
+      .control-card.customize-card {
+        min-width: 0;
+        width: 100%;
+        flex: none;
+      }
+
+      .chip-row,
+      .option-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .chip,
+      .option-btn {
+        flex: 0 0 auto;
+      }
+
+      .main {
+        gap: 12px;
+      }
+
+      .map-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .legend {
+        display: none;
+      }
+
+      .map-stage {
+        height: min(58vh, 500px);
+        min-height: 380px;
+      }
+
+      .side-card {
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
       .map-stage,
       .map-stage svg {
-        min-height: 480px;
-        height: 480px;
+        min-height: 340px;
+        height: 52vh;
       }
 
       .map-overlay {
         grid-template-columns: 1fr 1fr;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        gap: 8px;
+      }
+
+      .mini-stat {
+        padding: 10px;
+        border-radius: 14px;
+      }
+
+      .mini-stat strong {
+        font-size: 1rem;
+      }
+
+      .mini-stat span {
+        font-size: 0.72rem;
+      }
+
+      .side-card {
+        padding: 12px;
+      }
+
+      .summary-box {
+        padding: 12px;
+      }
+
+      .summary-box strong {
+        font-size: 1.22rem;
       }
 
       .route-day {
         grid-template-columns: auto 1fr;
+        gap: 10px;
+        padding: 10px;
       }
 
       .route-day em {
         grid-column: 2;
+        white-space: normal;
+      }
+
+      .route-badge {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        font-size: 0.76rem;
+      }
+
+      .day-detail {
+        padding: 10px;
+      }
+
+      .day-detail-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .detail-line {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .detail-line em {
+        white-space: normal;
       }
     }
   </style>
