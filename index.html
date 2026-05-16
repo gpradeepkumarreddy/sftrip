@@ -260,26 +260,26 @@
 
     .map-overlay {
       position: absolute;
-      left: auto;
-      right: 14px;
+      left: 14px;
+      right: auto;
       bottom: 14px;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
-      width: min(470px, calc(100% - 28px));
+      width: min(250px, calc(100% - 28px));
     }
 
     .mini-stat {
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.78);
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.74);
       border: 1px solid rgba(19, 35, 43, 0.08);
       backdrop-filter: blur(10px);
     }
 
     .mini-stat strong {
       display: block;
-      font-size: 0.98rem;
+      font-size: 0.88rem;
       letter-spacing: -0.05em;
     }
 
@@ -287,7 +287,7 @@
       display: block;
       margin-top: 2px;
       color: var(--muted);
-      font-size: 0.7rem;
+      font-size: 0.66rem;
     }
 
     .side-card {
@@ -619,23 +619,24 @@
 
       .map-overlay {
         grid-template-columns: 1fr 1fr;
-        right: 12px;
+        left: 10px;
+        right: auto;
         bottom: 12px;
-        gap: 8px;
-        width: min(250px, calc(100% - 24px));
+        gap: 6px;
+        width: min(190px, calc(100% - 20px));
       }
 
       .mini-stat {
-        padding: 10px;
-        border-radius: 14px;
+        padding: 8px;
+        border-radius: 12px;
       }
 
       .mini-stat strong {
-        font-size: 1rem;
+        font-size: 0.88rem;
       }
 
       .mini-stat span {
-        font-size: 0.72rem;
+        font-size: 0.64rem;
       }
 
       .side-card {
@@ -736,7 +737,7 @@
         </div>
 
         <div class="map-stage">
-          <svg viewBox="460 0 350 700" aria-hidden="true">
+          <svg viewBox="525 10 250 680" aria-hidden="true">
             <defs>
               <linearGradient id="sea" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#dff1f5"></stop>
